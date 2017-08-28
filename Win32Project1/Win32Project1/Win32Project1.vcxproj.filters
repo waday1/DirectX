@@ -67,11 +67,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Color.vs">
-      <Filter>シェーダーファイル</Filter>
-    </None>
     <None Include="Color.ps">
-      <Filter>シェーダーファイル</Filter>
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Color.vs">
+      <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
 </Project>
