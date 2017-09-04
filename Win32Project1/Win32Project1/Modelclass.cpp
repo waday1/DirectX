@@ -55,10 +55,10 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	D3D11_SUBRESOURCE_DATA vertexData, indexData;
 	HRESULT result;
 
+	//五角形表示
+	m_vertexCount=5;
 
-	m_vertexCount=3;
-
-	m_indexCount = 3;
+	m_indexCount = 5;
 
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices)
@@ -74,18 +74,27 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 
 
 	//ポイントを描画するには、時計回りの順序でポイントを作成します。
-	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[0].position = XMFLOAT3(0.0f, 1.5f, 0.0f);
+	vertices[0].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[1].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
+	vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
 
-	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[2].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
 	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
+	vertices[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[3].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+
+	vertices[4].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
+	vertices[4].color = XMFLOAT4(1.0f, 1.0f,1.0f, 1.0f);
+
+
 	indices[0] = 0;// 左下。
-	indices[1] = 1;//トップミドル。
-	indices[2] = 2;// 右下。
+	indices[1] = 1;//左下。
+	indices[2] = 2;// 右上。
+	indices[3] = 3;// 右下。
+	indices[4] = 4;// 右下。
 
 
 	vertexBufferDecs.Usage = D3D11_USAGE_DEFAULT;
@@ -161,7 +170,11 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext*deviceContext)
 
 	deviceContext->IASetIndexBuffer(m_indexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
-	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	//三角形の場合はこっち
+	//deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	//そのほか多角形の場合はこっち
+	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	return;
 }
