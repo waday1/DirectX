@@ -56,9 +56,9 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	HRESULT result;
 
 
-	m_vertexCount=3;
+	m_vertexCount=6;
 
-	m_indexCount = 3;
+	m_indexCount = 6;
 
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices)
@@ -77,15 +77,29 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
 	vertices[0].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
-	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[1].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
 	vertices[1].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
 	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
 	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
 
+
+	vertices[3].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
+	vertices[3].color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+
+	vertices[4].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
+	vertices[4].color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+
+	vertices[5].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[5].color = XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f);
+
 	indices[0] = 0;// 左下。
 	indices[1] = 1;//トップミドル。
 	indices[2] = 2;// 右下。
+
+	indices[3] = 3;// 左下。
+	indices[4] = 4;//トップミドル。
+	indices[5] = 5;// 右下。
 
 
 	vertexBufferDecs.Usage = D3D11_USAGE_DEFAULT;
