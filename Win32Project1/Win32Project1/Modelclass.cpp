@@ -122,9 +122,9 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	indices[0] = 0;// 左下。
 	indices[1] = 1;//左下。
 	indices[2] = 2;// 右上。
-	indices[3] = 0;// 左下。
-	indices[4] = 1;//左下。
-	indices[5] = 2;// 右上。
+	indices[3] = 3;// 左下。
+	indices[4] = 4;//左下。
+	indices[5] = 5;// 右上。
 	//indices[3] = 3;// 右下。
 	//indices[4] = 4;// 右下。
 
