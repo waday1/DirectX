@@ -4,6 +4,8 @@ ModelClass::ModelClass()
 {
 	m_vertexBuffer = 0;
 	m_indexBuffer = 0;
+
+	m_Texture = 0;
 }
 
 ModelClass::ModelClass(const ModelClass&other)
@@ -16,7 +18,7 @@ ModelClass::~ModelClass()
 
 }
 
-bool ModelClass::Initialize(ID3D11Device*device)
+bool ModelClass::Initialize(ID3D11Device*device, ID3D11DeviceContext* deviceContext, char* textureFilename)
 {
 	bool result;
 
@@ -25,11 +27,20 @@ bool ModelClass::Initialize(ID3D11Device*device)
 	{
 		return false;
 	}
+
+	result = LoadTexture(device, deviceContext, textureFilename);
+	if (!result)
+	{
+		return false;
+	}
+
 	return true;
 }
 
 void ModelClass::Shutdown()
 {
+	ReleaseTexture();
+
 	ShutdownBuffers();
 
 	return;
@@ -47,6 +58,11 @@ int ModelClass::GetIndexCount()
 	return m_indexCount;
 }
 
+ID3D11ShaderResourceView*ModelClass::GetTexture()
+{
+	return m_Texture->GetTexture();
+}
+
 bool ModelClass::InitializeBuffers(ID3D11Device*device)
 {
 	VertexType*vertices;
@@ -56,8 +72,8 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	HRESULT result;
 
 	//三角形表示
-	m_vertexCount=5;
-	m_indexCount = 5;
+	m_vertexCount=6;
+	m_indexCount = 6;
 
 	//五角形表示
   /*m_vertexCount=5;
@@ -77,14 +93,24 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 
 
 	//ポイントを描画するには、時計回りの順序でポイントを作成します。
-	vertices[0].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertices[0].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
+	vertices[0].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
+	vertices[0].texture = XMFLOAT2(0.0f, 1.0f);
 
 	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[1].color = XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f);
+	vertices[1].texture = XMFLOAT2(0.5f, 0.0f);
 
 	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	vertices[2].color = XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f);
+	vertices[2].texture = XMFLOAT2( 1.0f, 1.0f);
+
+	vertices[3].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
+	vertices[3].texture = XMFLOAT2(0.0f, 1.0f);
+
+	vertices[4].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
+	vertices[4].texture = XMFLOAT2(0.5f, 0.0f);
+
+	vertices[5].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[5].texture = XMFLOAT2(1.0f, 1.0f);
+
 	/*
 	vertices[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
 	vertices[3].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
@@ -96,6 +122,9 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	indices[0] = 0;// 左下。
 	indices[1] = 1;//左下。
 	indices[2] = 2;// 右上。
+	indices[3] = 0;// 左下。
+	indices[4] = 1;//左下。
+	indices[5] = 2;// 右上。
 	//indices[3] = 3;// 右下。
 	//indices[4] = 4;// 右下。
 
@@ -178,6 +207,38 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext*deviceContext)
 
 	//そのほか多角形の場合はこっち
 	//deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	return;
+}
+
+bool ModelClass::LoadTexture(ID3D11Device*device, ID3D11DeviceContext*deviceContext, char* filename)
+{
+	bool result;
+
+	m_Texture = new TextureClass;
+	if (!m_Texture)
+	{
+		return false;
+	}
+
+
+	result = m_Texture->Initialize(device, deviceContext, filename);
+	if (!result)
+	{
+		return false;
+	}
+
+	return true;
+}
+
+void ModelClass::ReleaseTexture()
+{
+	if (m_Texture)
+	{
+		m_Texture->Shutdown();
+		delete m_Texture;
+		m_Texture = 0;
+	}
 
 	return;
 }

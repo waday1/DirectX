@@ -398,7 +398,7 @@ ID3D11Device*D3DClass::GetDevice()
 	return m_device;
 }
 
-ID3D11DeviceContext*D3DClass::GetDeviceContex()
+ID3D11DeviceContext*D3DClass::GetDeviceContext()
 {
 	return m_deviceContext;
 }

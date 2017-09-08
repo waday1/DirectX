@@ -20,7 +20,7 @@ private:
 public:
 	TextureClass();
 	TextureClass(const TextureClass&);
-	TextureClass();
+	~TextureClass();
 
 	bool Initialize(ID3D11Device*, ID3D11DeviceContext*, char*);
 	void Shutdown();
@@ -31,10 +31,10 @@ private:
 	bool LoadTarga(char*, int&, int&);
 
 private:
-	unsigned char*m_targaData;
-	ID3D11Texture2D*m_texture;
-	ID3D11ShaderResourceView*m_textureView;
-}
+	unsigned char* m_targaData;
+	ID3D11Texture2D* m_texture;
+	ID3D11ShaderResourceView* m_textureView;
+};
 
 
 #endif

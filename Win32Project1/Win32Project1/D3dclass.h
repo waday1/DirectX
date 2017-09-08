@@ -22,7 +22,7 @@ public:
 	void EndScene();
 
 	ID3D11Device*GetDevice();
-	ID3D11DeviceContext*GetDeviceContex();
+	ID3D11DeviceContext*GetDeviceContext();
 
 	void GetProjectionMatrix(DirectX::XMMATRIX&);
 	void GetWorldMatrix(DirectX::XMMATRIX&);

@@ -1,5 +1,4 @@
-#include"Textureclass.h"
-
+#include "Textureclass.h"
 TextureClass::TextureClass()
 {
 	m_targaData = 0;
@@ -25,16 +24,16 @@ bool TextureClass::Initialize(ID3D11Device*device, ID3D11DeviceContext*deviceCon
 	unsigned int rowPitch;
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc;
 
-	result = LoadTarge(filename, height, width);
+	result = LoadTarga(filename, height, width);
 	if (!result)
 	{
 		return false;
 	}
 
 	textureDesc.Height = height;
-	textureDesc.Width = height;
+	textureDesc.Width = width;
 	textureDesc.MipLevels = 0;
-	textureDesc.ArraySize = 0;
+	textureDesc.ArraySize = 1;
 	textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	textureDesc.SampleDesc.Count = 1;
 	textureDesc.SampleDesc.Quality = 0;
@@ -69,6 +68,115 @@ bool TextureClass::Initialize(ID3D11Device*device, ID3D11DeviceContext*deviceCon
 
 	delete[] m_targaData;
 	m_targaData = 0;
+
+	return true;
+}
+
+void TextureClass::Shutdown()
+{
+	if (m_textureView)
+	{
+		m_textureView->Release();
+		m_textureView = 0;
+	}
+
+	if (m_texture)
+	{
+		m_texture->Release();
+		m_texture = 0;
+	}
+
+	if (m_targaData)
+	{
+		delete[]m_targaData;
+		m_targaData = 0;
+	}
+
+	return;
+}
+
+ID3D11ShaderResourceView*TextureClass::GetTexture()
+{
+	return m_textureView;
+}
+
+bool TextureClass::LoadTarga(char*filename, int& height, int& width)
+{
+	int error, bpp, imageSize, index, i, j, k;
+	FILE*filePtr;
+	unsigned int count;
+	TargaHeader targaFileHeader;
+	unsigned char* targaImage;
+
+	error = fopen_s(&filePtr, filename, "rb");
+	if (error != 0)
+	{
+		return false;
+	}
+
+	count = (unsigned int)fread(&targaFileHeader, sizeof(TargaHeader), 1, filePtr);
+	if (count != 1)
+	{
+		return false;
+	}
+
+	height = (int)targaFileHeader.height;
+	width = (int)targaFileHeader.width;
+	bpp = (int)targaFileHeader.bpp;
+
+	if (bpp != 32)
+	{
+		return false;
+	}
+
+	imageSize = width*height * 4;
+
+	targaImage = new unsigned char[imageSize];
+	if (!targaImage)
+	{
+		return false;
+	}
+
+	count = (unsigned int)fread(targaImage, 1, imageSize, filePtr);
+	if (count != imageSize)
+	{
+		return false;
+	}
+
+	error = fclose(filePtr);
+	if (error != 0)
+	{
+		return false;
+	}
+
+	m_targaData = new unsigned char[imageSize];
+	if (!m_targaData)
+	{
+		return false;
+	}
+
+	index = 0;
+
+	k = (width*height * 4) - (width * 4);
+
+	for (j = 0; j < height; j++)
+	{
+		for (i = 0; i < width; i++)
+		{
+			m_targaData[index + 0] = targaImage[k + 2];//red
+			m_targaData[index + 1] = targaImage[k + 1];//green
+			m_targaData[index + 2] = targaImage[k + 0];//bule
+			m_targaData[index + 3] = targaImage[k + 3];//alpha
+
+			k += 4;
+			index += 4;
+		}
+
+		k -= (width * 8);
+	}
+
+	delete[]targaImage;
+	targaImage = 0;
 
 	return true;
 }
