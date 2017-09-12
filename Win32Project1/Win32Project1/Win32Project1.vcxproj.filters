@@ -33,16 +33,10 @@
     <ClCompile Include="D3dclass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Colorshaderclass.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Modelclass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Cameraclass.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Textureshaderclass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Textureclass.cpp">
@@ -62,9 +56,6 @@
     <ClInclude Include="D3dclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Colorshaderclass.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Modelclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -74,7 +65,7 @@
     <ClInclude Include="Textureclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Textureshaderclass.h">
+    <ClInclude Include="Lightshaderclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,6 +80,12 @@
       <Filter>リソース ファイル</Filter>
     </None>
     <None Include="Texture.ps">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Light.vs">
+      <Filter>リソース ファイル</Filter>
+    </None>
+    <None Include="Light.ps">
       <Filter>リソース ファイル</Filter>
     </None>
   </ItemGroup>
