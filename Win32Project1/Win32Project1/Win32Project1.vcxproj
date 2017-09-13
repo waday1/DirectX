@@ -166,6 +166,7 @@
     <None Include="Color.vs" />
     <None Include="Light.ps" />
     <None Include="Light.vs" />
+    <None Include="Lightsshaderclass.cpp" />
     <None Include="Texture.ps" />
     <None Include="Texture.vs" />
   </ItemGroup>

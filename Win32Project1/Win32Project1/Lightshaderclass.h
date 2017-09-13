@@ -2,6 +2,7 @@
 #define _LIGHTSHADERCLASS_H_
 
 #include <d3d11.h>
+#include <d3dcompiler.h>
 #include<DirectXMath.h>
 #include <fstream>
 using namespace std;

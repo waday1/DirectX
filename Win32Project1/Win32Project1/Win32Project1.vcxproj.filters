@@ -88,5 +88,8 @@
     <None Include="Light.ps">
       <Filter>リソース ファイル</Filter>
     </None>
+    <None Include="Lightsshaderclass.cpp">
+      <Filter>ソース ファイル</Filter>
+    </None>
   </ItemGroup>
 </Project>
