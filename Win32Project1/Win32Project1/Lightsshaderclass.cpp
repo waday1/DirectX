@@ -202,3 +202,83 @@ bool LightShaderClass::InitializeShader(ID3D11Device*device, HWND hwnd, WCHAR*vs
 
 	return true;
 }
+
+void LightShaderClass::ShutdownShader()
+{
+	if (m_lightBuffer)
+	{
+		m_lightBuffer->Release();
+		m_lightBuffer = 0;
+	}
+
+	if (m_matrixBuffer)
+	{
+		m_matrixBuffer->Release();
+		m_matrixBuffer = 0;
+	}
+
+	if (m_sampleState)
+	{
+		m_sampleState->Release();
+		m_sampleState = 0;
+	}
+
+	if (m_layout)
+	{
+		m_layout->Release();
+		m_layout = 0;
+	}
+
+	if (m_pixelShader)
+	{
+		m_pixelShader->Release();
+		m_pixelShader = 0;
+	}
+
+	if (m_vertexShader)
+	{
+		m_vertexShader->Release();
+		m_vertexShader = 0;
+	}
+
+	return;
+}
+
+void LightShaderClass::OutputShaderErrorMessage(ID3D10Blob*errorMessage, HWND hwnd, WCHAR*shaderFilename)
+{
+	char*compileError;
+	unsigned long bufferSize, i;
+	ofstream fout;
+
+	compileError = (char*)(errorMessage->GetBufferPointer());
+
+	bufferSize = errorMessage->GetBufferSize();
+
+	fout.open("shader-error.txt");
+
+	for (i = 0; i < bufferSize; i++)
+	{
+		fout << compileError[i];
+	}
+
+	fout.close();
+
+	errorMessage->Release();
+	errorMessage = 0;
+
+	MessageBox(hwnd, L"Error compiling shader.  Check shader-error.txt for message.", shaderFilename, MB_OK);
+
+	return;
+}
+
+bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext*deviceContext, XMMATRIX worldMatrix, XMMATRIX viewMatrix,
+	XMMATRIX projectionMatrix, ID3D11ShaderResourceView*texture, XMFLOAT3 lightDirection, XMFLOAT4 diffuseColor)
+{
+	HRESULT result;
+	D3D11_MAPPED_SUBRESOURCE mappedResource;
+	unsigned int bufferNumber;
+	MatrixBufferType* dataPtr;
+	LightBufferType* dataPtr2;
+
+	worldMatrix = XMMatrixTranspose(worldMatrix);
+}
