@@ -72,12 +72,8 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 	HRESULT result;
 
 	//三角形表示
-	m_vertexCount=6;
-	m_indexCount = 6;
-
-	//五角形表示
-  /*m_vertexCount=5;
-	m_indexCount = 5;*/
+	m_vertexCount=3;
+	m_indexCount = 3;
 
 	vertices = new VertexType[m_vertexCount];
 	if (!vertices)
@@ -93,40 +89,22 @@ bool ModelClass::InitializeBuffers(ID3D11Device*device)
 
 
 	//ポイントを描画するには、時計回りの順序でポイントを作成します。
-	vertices[0].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
-	vertices[0].texture = XMFLOAT2(0.0f, 0.0f);
+	vertices[0].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
+	vertices[0].texture = XMFLOAT2(0.0f, 1.0f);
+	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
-	vertices[1].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[1].texture = XMFLOAT2(1.0f, 1.0f);
+	vertices[1].position = XMFLOAT3(0.0f, 1.0f, 0.0f);
+	vertices[1].texture = XMFLOAT2(0.5f, 0.0f);
+	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
-	vertices[2].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	vertices[2].texture = XMFLOAT2( 0.0f, 1.0f);
-
-	vertices[3].position = XMFLOAT3(-1.0f, 1.0f, 0.0f);
-	vertices[3].texture = XMFLOAT2(0.0f, 0.0f);
-
-	vertices[4].position = XMFLOAT3(1.0f, 1.0f, 0.0f);
-	vertices[4].texture = XMFLOAT2(1.0f, 0.0f);
-
-	vertices[5].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[5].texture = XMFLOAT2(1.0f, 1.0f);
-
-	/*
-	vertices[3].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
-	vertices[3].color = XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f);
-
-	vertices[4].position = XMFLOAT3(-1.0f, -1.0f, 0.0f);
-	vertices[4].color = XMFLOAT4(1.0f, 1.0f,1.0f, 1.0f);*/
+	vertices[2].position = XMFLOAT3(1.0f, -1.0f, 0.0f);
+	vertices[2].texture = XMFLOAT2( 1.0f, 1.0f);
+	vertices[0].normal = XMFLOAT3(0.0f, 0.0f, -1.0f);
 
 
 	indices[0] = 0;// 左下。
 	indices[1] = 1;//左下。
 	indices[2] = 2;// 右上。
-	indices[3] = 3;// 左下。
-	indices[4] = 4;//左下。
-	indices[5] = 5;// 右上。
-	//indices[3] = 3;// 右下。
-	//indices[4] = 4;// 右下。
 
 
 	vertexBufferDecs.Usage = D3D11_USAGE_DEFAULT;
@@ -204,9 +182,6 @@ void ModelClass::RenderBuffers(ID3D11DeviceContext*deviceContext)
 
 	//三角形の場合はこっち
 	deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-	//そのほか多角形の場合はこっち
-	//deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
 
 	return;
 }
