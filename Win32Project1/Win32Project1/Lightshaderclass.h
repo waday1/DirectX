@@ -22,7 +22,7 @@ private:
 	{
 		XMFLOAT4 diffuseColor;
 		XMFLOAT3 lightDirection;
-		float padding;  
+		float padding;
 	};
 
 public:

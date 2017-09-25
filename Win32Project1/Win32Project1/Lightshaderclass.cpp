@@ -73,7 +73,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device*device, HWND hwnd, WCHAR*vs
 	vertexShaderBuffer = 0;
 	pixelShaderBuffer = 0;
 
-	result = D3DCompileFromFile(vsFilename,NULL,NULL,"LightVertexShader","vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+	result = D3DCompileFromFile(vsFilename, NULL, NULL, "LightVertexShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
 		&vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
@@ -90,7 +90,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device*device, HWND hwnd, WCHAR*vs
 	}
 
 
-	result = D3DCompileFromFile(psFilename,NULL,NULL,"LightPixelShader", "vs_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
+	result = D3DCompileFromFile(psFilename, NULL, NULL, "LightPixelShader", "ps_5_0", D3D10_SHADER_ENABLE_STRICTNESS, 0,
 		&vertexShaderBuffer, &errorMessage);
 	if (FAILED(result))
 	{
@@ -196,7 +196,7 @@ bool LightShaderClass::InitializeShader(ID3D11Device*device, HWND hwnd, WCHAR*vs
 	result = device->CreateBuffer(&lightBufferDesc, NULL, &m_lightBuffer);
 	if (FAILED(result))
 	{
-		return;
+		return false;
 	}
 
 	return true;
@@ -300,7 +300,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext*deviceContext, XM
 	bufferNumber = 0;
 
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
-	
+
 	deviceContext->PSGetShaderResources(0, 1, &texture);
 
 

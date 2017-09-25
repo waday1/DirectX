@@ -147,6 +147,7 @@
     <ClCompile Include="GraphicsClass.cpp" />
     <ClCompile Include="InputClass.cpp" />
     <ClCompile Include="Lightclass.cpp" />
+    <ClCompile Include="LightShaderClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Modelclass.cpp" />
     <ClCompile Include="SystemClass.cpp" />
@@ -158,7 +159,7 @@
     <ClInclude Include="GraphicsClass.h" />
     <ClInclude Include="InputClass.h" />
     <ClInclude Include="Lightclass.h" />
-    <ClInclude Include="Lightshaderclass.h" />
+    <ClInclude Include="LightShaderClass.h" />
     <ClInclude Include="Modelclass.h" />
     <ClInclude Include="SystemClass.h" />
     <ClInclude Include="Textureclass.h" />
@@ -168,7 +169,6 @@
     <None Include="Color.vs" />
     <None Include="Light.ps" />
     <None Include="Light.vs" />
-    <None Include="Lightshaderclass.cpp" />
     <None Include="Texture.ps" />
     <None Include="Texture.vs" />
   </ItemGroup>

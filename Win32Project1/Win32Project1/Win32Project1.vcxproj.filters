@@ -45,6 +45,9 @@
     <ClCompile Include="Lightclass.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="LightShaderClass.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SystemClass.h">
@@ -68,10 +71,10 @@
     <ClInclude Include="Textureclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Lightshaderclass.h">
+    <ClInclude Include="Lightclass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Lightclass.h">
+    <ClInclude Include="LightShaderClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -93,9 +96,6 @@
     </None>
     <None Include="Light.ps">
       <Filter>リソース ファイル</Filter>
-    </None>
-    <None Include="Lightshaderclass.cpp">
-      <Filter>ソース ファイル</Filter>
     </None>
   </ItemGroup>
 </Project>
