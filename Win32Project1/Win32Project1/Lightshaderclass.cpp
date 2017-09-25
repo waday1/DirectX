@@ -306,7 +306,7 @@ bool LightShaderClass::SetShaderParameters(ID3D11DeviceContext*deviceContext, XM
 
 	deviceContext->VSSetConstantBuffers(bufferNumber, 1, &m_matrixBuffer);
 
-	deviceContext->PSGetShaderResources(0, 1, &texture);
+	deviceContext->PSSetShaderResources(0, 1, &texture);
 
 
 	result = deviceContext->Map(m_lightBuffer, 0, D3D11_MAP_WRITE_DISCARD, 0, &mappedResource);
