@@ -1,3 +1,4 @@
+
 Texture2D shaderTexture;
 SamplerState SampleType;
 
@@ -22,14 +23,13 @@ float4 LightPixelShader(PixelInputType input) : SV_TARGET
     float lightIntensity;
     float4 color;
 
+	textureColor = shaderTexture.Sample(SampleType, input.tex);
 
-    textureColor = shaderTexture.Sample(SampleType, input.tex);
-
-	lightDir = -lightDirection;
+    lightDir = -lightDirection;
 
     lightIntensity = saturate(dot(input.normal, lightDir));
-
-	color = saturate(diffuseColor * lightIntensity);
+   
+    color = saturate(diffuseColor * lightIntensity);
 
     color = color * textureColor;
 
